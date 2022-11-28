@@ -8,7 +8,7 @@ class Solution {
         Set<Integer> memberGroupIsNotDuplicate = new HashSet<>(); // 나온 플레이어들을 저장하고, Collections.sort 하고 쭉 가줄 것임
 
         for (int i = 0; i < matches.length; i++) {
-            int winPlayer = matches[i][0];
+            int winPlayer = matches[i][0];   
             int lostPlayer = matches[i][1];
             
             numberOfLose[lostPlayer]++;
