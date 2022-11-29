@@ -35,7 +35,7 @@ class RandomizedSet {
             randomNumber = it.next();
         }
 
-        return randomNumber;
+        return randomNumber;   
     }
 }
 
