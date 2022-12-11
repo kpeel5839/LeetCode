@@ -33,7 +33,6 @@ class Solution {
         // 이제 여기서 결정해야함, 점수를 낼 때에는 양쪽 둘다 선택하는 것이 좋은지 아닌지를 선택하고
         // 그리고 위쪽에 넘길때는 둘중 max 해서 더해서 넘김
         max = Math.max(max, currentNode.val + (leftPathSum < 0 ? 0 : leftPathSum) + (rightPathSum < 0 ? 0 : rightPathSum));
-        // System.out.println("currentNode.val : " + currentNode.val + " leftPathSum : " + leftPathSum + " rightPathSum : " + rightPathSum);
         return currentNode.val + (Math.max(leftPathSum, rightPathSum) < 0 ? 0 : Math.max(leftPathSum, rightPathSum));
     }
     
