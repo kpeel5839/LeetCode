@@ -2,8 +2,6 @@ import java.util.*;
 
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-        // just fucking LCS
-        // 끝문자가 같으면, +1 아니라면 둘 중 큰 거 가져옴
         text1 = " " + text1;
         text2 = " " + text2;
         int[][] lcsUntilNow = new int[text1.length()][text2.length()];
