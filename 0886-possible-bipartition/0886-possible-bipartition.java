@@ -27,7 +27,7 @@ class Solution {
         
         for (int i = 0; i < dislikes.length; i++) {
             graph.get(dislikes[i][0]).add(dislikes[i][1]);
-            graph.get(dislikes[i][1]).add(dislikes[i][0]);
+            graph.get(dislikes[i][1]).add(dislikes[i][0]); 
         }
         
         for (int i = 1; i <= n; i++) {
