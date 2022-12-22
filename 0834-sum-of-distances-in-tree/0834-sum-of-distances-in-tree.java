@@ -3,14 +3,15 @@ class Solution {
     public int[] count;
     public int[] result;
     
-    public void dfsForCount(int current, int parent) {
+    public int dfsForCount(int current, int parent, int depth) {            
         for (Integer next : graph.get(current)) {
-            if (parent != next) { 
-                dfsForCount(next, current);
+            if (parent != next) {
+                result[current] += dfsForCount(next, current, depth + 1);
                 count[current] += count[next];
-                result[current] += result[next] + count[next];            
             }
         }
+        
+        return result[current] + depth;
     }
     
     public void dfsForResult(int current, int parent) { 
@@ -36,8 +37,7 @@ class Solution {
             graph.get(edges[i][1]).add(edges[i][0]);
         }
         
-        
-        dfsForCount(0, -1);
+        result[0] = dfsForCount(0, -1, 0);
         dfsForResult(0, -1);
         return result;
     }
