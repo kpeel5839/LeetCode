@@ -1,16 +1,31 @@
 class Solution {
     public int findMinArrowShots(int[][] points) {
-         if (points.length == 0)
-            return 0;
-        Arrays.sort(points, (a, b) -> Integer.compare(a[1], b[1]));
-        int arrowCount = 0;
-        long possibleEnd = Long.MIN_VALUE;
-        for (int [] p: points) {
-            if (p[0] > possibleEnd) {
-                possibleEnd = p[1];
-                arrowCount += 1;
+        Arrays.sort(points, (o1, o2) -> {
+            if (o1[0] > o2[0]) {
+                return 1;
+            } else if (o1[0] == o2[0]) {
+                if (o1[1] > o2[1]) {
+                    return 1;
+                }
+                
+                return -1;
+            }
+            
+            return -1;
+        });
+        
+        int minimumNumberOfArrows = 0;
+        int end = points[0][1];
+        
+        for (int i = 1; i < points.length; i++) {
+            if (end < points[i][0]) {
+                minimumNumberOfArrows++;
+                end = points[i][1];
+            } else {
+                end = Math.min(end, points[i][1]);
             }
         }
-        return arrowCount;
+        
+        return minimumNumberOfArrows + 1; // 마지막을 못세는 문제가 있어서 + 1 을 해서 return
     }
 }
