@@ -13,16 +13,18 @@ class Solution {
         while (start < size) {
             nowGasAmount += totalCost[index % size];
             
-            if (nowGasAmount < 0) { // 끝난 경우
-                index++;
-                start = index;
-                nowGasAmount = 0;
-            } else { // 끝나지 않은 경우
+            if (nowGasAmount >= 0) {
                 if ((start + size - 1) == index) { // 완전 다 돈 경우
                     return start;
                 }
                 
                 index++;
+            }
+            
+            if (nowGasAmount < 0) { // 끝난 경우
+                index++;
+                start = index;
+                nowGasAmount = 0;
             }
         }
         
