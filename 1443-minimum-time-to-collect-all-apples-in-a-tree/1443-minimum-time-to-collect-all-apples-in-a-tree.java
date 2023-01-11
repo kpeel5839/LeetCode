@@ -11,9 +11,6 @@ class Solution {
             }
         }
         
-        // System.out.println("current vertex : " + current);
-        // System.out.println("distanceSum : " + distanceSum);
-        
         int add = 0;
         if (distanceSum != 0 || isApple[current]) {
             add = 2;
@@ -34,6 +31,6 @@ class Solution {
         }
         
         int answer = dfs(-1, 0);
-        return answer != 0 ? answer - 2 : answer; // 마지막에 본인도 + 2 를 해서 던져서 그 부분을 대체하기 위해
+        return answer != 0 ? answer - 2 : answer;
     }
 }
