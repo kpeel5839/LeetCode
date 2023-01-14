@@ -1,6 +1,5 @@
 class Solution {
     public int[] parent = new int['z' - 'a' + 1];
-    public List<ArrayList<Integer>> graph = new ArrayList<>();
     public boolean[] visited = new boolean['z' - 'a' + 1];
     
     public int find(int index) {
