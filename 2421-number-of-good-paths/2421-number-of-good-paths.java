@@ -24,6 +24,7 @@ class Solution {
             graph.add(new ArrayList<>());
             parent[i] = i;
             duplicateRemover.add(vals[i]);
+            valueToIndex.put(vals[i], new HashSet<>());
         }
         
         List<Integer> values = new ArrayList<>(duplicateRemover);
@@ -32,18 +33,15 @@ class Solution {
             graph.get(edges[i][0]).add(new int[] {edges[i][1], vals[edges[i][1]]});
             graph.get(edges[i][1]).add(new int[] {edges[i][0], vals[edges[i][0]]});
             
-            for (int j = 0; j <= 1; j++) {
-                HashSet<Integer> addNode = valueToIndex.getOrDefault(vals[edges[i][j]], new HashSet<>());
-                addNode.add(edges[i][j]);
-                valueToIndex.put(vals[edges[i][j]], addNode);
-            }
+            valueToIndex.get(vals[edges[i][0]]).add(edges[i][0]);
+            valueToIndex.get(vals[edges[i][1]]).add(edges[i][1]);
         }
         
         int result = vals.length;
         Collections.sort(values);
         
         for (int i = 0; i < values.size(); i++) {
-            for (Integer node : valueToIndex.getOrDefault(values.get(i), new HashSet<>())) {
+            for (Integer node : valueToIndex.get(values.get(i))) {
                 for (int[] nextNode : graph.get(node)) {
                     if (nextNode[1] <= values.get(i)) {
                         union(nextNode[0], node);
@@ -52,7 +50,7 @@ class Solution {
             }
             
             Map<Integer, Integer> groupCount = new HashMap<>();
-            for (Integer node : valueToIndex.getOrDefault(values.get(i), new HashSet<>())) {
+            for (Integer node : valueToIndex.get(values.get(i))) {
                 groupCount.put(find(node), groupCount.getOrDefault(find(node), 0) + 1);
             }
             
