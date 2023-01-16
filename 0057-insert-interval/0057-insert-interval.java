@@ -4,6 +4,7 @@ class Solution {
             || (pivot[0] <= compare[1] && compare[1] <= pivot[1])
             || (compare[0] <= pivot[0] && pivot[1] <= compare[1]);
     }
+    
     public int[][] insert(int[][] intervals, int[] newInterval) {
         int start = Integer.MAX_VALUE;
         int overlapCount = 0;
