@@ -7,6 +7,14 @@ class Solution {
         return 0;
     }
     
+    public int isFlip(int pivot, int compare) {
+        if (pivot == compare) {
+            return 0;
+        }
+        
+        return 1;
+    }
+    
     public int minFlipsMonoIncr(String s) {
         int[][] flipCount = new int[2][s.length()];
         int allRemoveCount = 0;
@@ -30,16 +38,11 @@ class Solution {
                 flipCount[oppose(now)][i] += flipCount[1][i + 1] + 1;
                 flipCount[now][i] += flipCount[1][i + 1];
             }
-            
-            if (i != s.length() - 2 && now == 0) {
-                flipCount[0][i] += Math.min(flipCount[0][i + 1], flipCount[1][i + 1]);
-                flipCount[1][i] += flipCount[1][i + 1] + 1;
-            }
-            
-            if (i != s.length() - 2 && now == 1) {
-                flipCount[0][i] += Math.min(flipCount[0][i + 1], flipCount[1][i + 1]) + 1;
-                flipCount[1][i] += flipCount[1][i + 1];
-            }        
+        
+            if (i != s.length() - 2) {
+                flipCount[0][i] += Math.min(flipCount[0][i + 1], flipCount[1][i + 1]) + isFlip(now, 0);
+                flipCount[1][i] += flipCount[1][i + 1] + isFlip(now, 1);   
+            }     
         }
         
         int result = Math.min(allRemoveCount, Math.min(flipCount[0][0], flipCount[1][0]));
