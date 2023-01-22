@@ -1,5 +1,6 @@
 class Solution {
     Set<List<String>> notDuplicate = new HashSet<>();
+    boolean[][] isPelindrome;
     
     public void brute(List<Integer> seperate, String s, int index) {
         addAnswer(new ArrayList<>(seperate), s);
@@ -18,7 +19,7 @@ class Solution {
         for (int i = 0; i < splitS.length; i++) {
             splitS[i] = s.substring(seperate.get(i), seperate.get(i + 1));
             
-            if (!isPalindrome(splitS[i])) {
+            if (!isPelindrome[seperate.get(i)][seperate.get(i + 1) - 1]) {
                 return;
             }
         }
@@ -31,25 +32,30 @@ class Solution {
         notDuplicate.add(addList);
     }
     
-    public boolean isPalindrome(String s) {
-        Stack<Character> stack = new Stack<>();
-        
-        for (int i = 0; i < s.length(); i++) {
-            stack.push(s.charAt(i));
-        }
-        
-        int index = 0;
-        while (!stack.isEmpty()) {
-            if (stack.pop() != s.charAt(index++)) {
-                return false;
-            }
-        }
-        
-        return true;
-    }
-    
     public List<List<String>> partition(String s) {
         List<Integer> seperate = new ArrayList<>();
+        isPelindrome = new boolean[s.length()][s.length()];
+        
+        for (int i = 0; i < isPelindrome.length; i++) {        
+            for (int j = 0; j < isPelindrome.length - i; j++) {
+                if (i == 0) {
+                    isPelindrome[j][j] = true;
+                }
+                
+                if (i == 1) {
+                    if (s.charAt(j) == s.charAt(j + i)) {
+                        isPelindrome[j][j + i] = true;
+                    }
+                }
+                
+                if (2 <= i) {
+                    if (s.charAt(j) == s.charAt(j + i) && isPelindrome[j + 1][j + i - 1]) {
+                        isPelindrome[j][j + i] = true;
+                    }
+                }
+            }
+        }
+
         seperate.add(0);
         brute(seperate, s, 0);
         
