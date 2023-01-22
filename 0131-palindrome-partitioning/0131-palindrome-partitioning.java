@@ -14,19 +14,16 @@ class Solution {
     
     public void addAnswer(List<Integer> seperate, String s) {
         seperate.add(s.length());
-        String[] splitS = new String[seperate.size() - 1];
         
-        for (int i = 0; i < splitS.length; i++) {
-            splitS[i] = s.substring(seperate.get(i), seperate.get(i + 1));
-            
+        for (int i = 0; i < seperate.size() - 1; i++) {    
             if (!isPelindrome[seperate.get(i)][seperate.get(i + 1) - 1]) {
                 return;
             }
         }
         
         List<String> addList = new ArrayList<>();
-        for (int i = 0; i < splitS.length; i++) {
-            addList.add(splitS[i]);
+        for (int i = 0; i < seperate.size() - 1; i++) {
+            addList.add(s.substring(seperate.get(i), seperate.get(i + 1)));
         }
         
         notDuplicate.add(addList);
