@@ -22,9 +22,7 @@ class Solution {
         queue.add(new int[] {1, 0});
         
         while (!queue.isEmpty()) {
-            int[] point = queue.poll();
-            
-            System.out.println(Arrays.toString(point));
+            int[] point = queue.poll();        
             
             if (point[0] == limit) {
                 return point[1];
