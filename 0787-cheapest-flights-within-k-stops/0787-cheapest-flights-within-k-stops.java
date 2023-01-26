@@ -1,12 +1,12 @@
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        k++;
         List<ArrayList<int[]>> graph = new ArrayList<>(); // {destination, price};       
-        int[][] visited = new int[2][n];
+        int[][] dist = new int[n][k + 1];
         
         for (int i = 0; i < n; i++) {
             graph.add(new ArrayList<>());
-            visited[0][i] = Integer.MAX_VALUE;
-            visited[1][i] = Integer.MAX_VALUE;
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
         }
         
         for (int i = 0; i < flights.length; i++) {
@@ -15,35 +15,37 @@ class Solution {
         
         PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> o1[2] - o2[2]); // {point, number of stop, cost};
         queue.add(new int[] {src, 0, 0});    
-        visited[0][src] = 0;
-        visited[1][src] = 0;
+        dist[src][0] = 0;
         
         while (!queue.isEmpty()) {
-            int[] point = queue.poll();
+            int[] point = queue.poll();                    
             
-            if (point[0] == dst) {
-                point[1]--;
-            }
-            
-            if (point[1] > k) {
+            if (point[2] > dist[point[0]][point[1]]) {
                 continue;
             }
             
-            if (point[0] == dst) {
-                return point[2];
+            if (point[1] == k) {
+                continue;
             }
             
             for (int[] next : graph.get(point[0])) {                        
-                if (visited[0][next[0]] <= point[1] + 1 && visited[1][next[0]] < point[2] + next[1]) {
-                    continue;
+                if (dist[next[0]][point[1] + 1] > point[2] + next[1]) {
+                    queue.add(new int[] {next[0], point[1] + 1, point[2] + next[1]});
+                    dist[next[0]][point[1] + 1] = point[2] + next[1];                
                 }
-                
-                queue.add(new int[] {next[0], point[1] + 1, point[2] + next[1]});            
-                visited[0][next[0]] = point[1] + 1;
-                visited[1][next[0]] = point[2] + next[1];            
             }
         }
         
-        return -1;
+        int answer = Integer.MAX_VALUE;
+        
+        for (int i = 0; i <= k; i++) {
+            answer = Math.min(answer, dist[dst][i]);
+        }
+        
+        if (answer == Integer.MAX_VALUE) {
+            answer = -1;
+        }
+        
+        return answer;
     }
 }
