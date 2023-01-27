@@ -17,9 +17,9 @@ class Solution {
     }
     
     public boolean canBeForm(String word) {
-        // if (formWord.contains(word)) {
-        //     return true;
-        // }
+        if (formWord.contains(word)) {
+            return true;
+        }
         
         for (int i = 1; i < word.length(); i++) {
             String s1 = word.substring(0, i);
@@ -27,7 +27,7 @@ class Solution {
             
             if (dict.contains(s1)) {
                 if (dict.contains(s2) || canBeForm(s2)) {
-                    // formWord.add(word);
+                    formWord.add(word);
                     return true;
                 }
             }
