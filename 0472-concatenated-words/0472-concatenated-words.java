@@ -1,38 +1,71 @@
 class Solution {
-    Set<String> dict;
-    Set<String> formWord;
+    public Trie root = new Trie();
     
-    public List<String> findAllConcatenatedWordsInADict(String[] words) {
-        dict = new HashSet<>(Arrays.asList(words));
-        List<String> answer = new ArrayList<>();
-        formWord = new HashSet<>();
+    public class Trie {
+        Trie[] next;
+        boolean isEnd;
         
-        for (String word : words) {
-            if (canBeForm(word)) {
-                answer.add(word);
-            }
+        Trie() {
+            next = new Trie[26]; // 일단은 각각의 배열은 null 로 존재하는 상태
+            isEnd = false; // false 로
         }
-        
-        return answer;
     }
     
-    public boolean canBeForm(String word) {
-        if (formWord.contains(word)) {
-            return true;
+    public void insert(String word) {
+        Trie current = root;
+        for (int i = 0; i < word.length(); i++) {
+            int index = word.charAt(i) - 'a';
+            
+            if (current.next[index] == null) {
+                current.next[index] = new Trie();
+            }
+            
+            current = current.next[index];
         }
         
-        for (int i = 1; i < word.length(); i++) {
-            String s1 = word.substring(0, i);
-            String s2 = word.substring(i);
+        current.isEnd = true;
+    }
+    
+    public boolean dfs(String word, int index, int count) {
+        if (index >= word.length()) {
+            return count >= 2; // 성공하는 경우
+        }
+        
+        Trie current = root;
+        
+        for (int i = index; i < word.length(); i++) {
+            // 여기서 출발
+            int pos = word.charAt(i) - 'a';
             
-            if (dict.contains(s1)) {
-                if (dict.contains(s2) || canBeForm(s2)) {
-                    formWord.add(word);
-                    return true;
+            if (current.next[pos] == null) {
+                return false;
+            }
+            
+            current = current.next[pos];
+            
+            if (current.isEnd) {
+                if (dfs(word, i + 1, count + 1)) {
+                    return true; // 여기서 return true 한번 나면, 바로 그냥 끝나는 것
                 }
             }
         }
         
         return false;
+    }
+    
+    public List<String> findAllConcatenatedWordsInADict(String[] words) {    
+        for (int i = 0; i < words.length; i++) {
+            insert(words[i]);
+        }
+        
+        List<String> answer = new ArrayList<>();
+        
+        for (int i = 0; i < words.length; i++) {
+            if (dfs(words[i], 0, 0)) {
+                answer.add(words[i]);
+            }
+        }
+        
+        return answer;
     }
 }
