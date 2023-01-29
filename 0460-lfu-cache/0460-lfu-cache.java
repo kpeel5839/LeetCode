@@ -22,8 +22,7 @@ class LFUCache {
         }
     }
     
-    public int get(int key) {            
-        // System.out.println("get : " + key);
+    public int get(int key) {                
         if (keyToValue[key] != -1) {
             Node insertNode = new Node(key);
             Node currentNode = countToNode.get(keyToCount[key]);        
@@ -53,19 +52,6 @@ class LFUCache {
             countToNode.put(keyToCount[key], insertNode);
             remove(keyToNode[key]); // 지워줌
             keyToNode[key] = insertNode;     
-            
-//             System.out.print("순회 : ");
-//             Node cur = root;
-
-//             while (true) {
-//                 cur = cur.next;
-//                 if (cur == null) {
-//                     break;
-//                 }
-//                 System.out.print(cur.key + " ");
-//             }
-
-//             System.out.println();
         }
     
         return keyToValue[key];
@@ -75,10 +61,8 @@ class LFUCache {
         if (capacity == 0) {
             return;
         }
-        
-        // System.out.println("add : " + key);
+            
         if (keyToValue[key] != -1) {
-            // 이때는 그냥 get 처럼 하면 됨
             Node insertNode = new Node(key);
             Node currentNode = countToNode.get(keyToCount[key]);
         
@@ -140,19 +124,6 @@ class LFUCache {
 
             countToNode.put(keyToCount[key], insertNode); // put 해주고           
         }    
-            
-//         System.out.print("순회 : ");
-//         Node cur = root;
-        
-//         while (true) {
-//             cur = cur.next;
-//             if (cur == null) {
-//                 break;
-//             }
-//             System.out.print(cur.key + " ");
-//         }
-        
-//         System.out.println();
     }
     
     public class Node {
