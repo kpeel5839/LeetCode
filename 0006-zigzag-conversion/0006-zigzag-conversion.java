@@ -24,12 +24,12 @@ class Solution {
     }
     
     public String convert(String s, int numRows) {
-        if (numRows != 1) {
-            for (int i = 1; i <= Math.min(s.length(), numRows); i++) {
-                calZigZag(i, s, numRows);
-            }   
-        } else {
-            answer.append(s);
+        if (numRows == 1) {
+            return s;
+        }
+        
+        for (int i = 1; i <= Math.min(s.length(), numRows); i++) {
+            calZigZag(i, s, numRows);
         }
         
         return answer.toString();
