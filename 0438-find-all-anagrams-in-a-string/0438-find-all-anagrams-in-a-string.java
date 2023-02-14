@@ -1,41 +1,54 @@
 class Solution {
-    public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> list = new ArrayList<Integer>();
-        if(p.length() > s.length()) return  list; // Base Condition
-       
-            int N=s.length(); // Array1 of s
-            int M=p.length(); // Array2 of p
-            int[]count = freq(p); // intialize only 1 time
-            
-            int[]currentCount = freq(s.substring(0, M)); // freq function, update every-time according to sliding window
-            
-            if(areSame(count,currentCount)) // areSame function
-                list.add(0);
+    public List<Integer> findAnagrams(String s2, String s1) {
+        Map<Character, Integer> s1Map = new HashMap<>();
+        Map<Character, Integer> s2Map = new HashMap<>();
         
-            int i;
-            for(i=M;i<N;i++){ // going from 3 to 9 in above example
-                currentCount[s.charAt(i-M) - 'a']--; // blue pointer, decrement frequency
-                currentCount[s.charAt(i)-'a']++; // red pointer, increment frequency
-                if(areSame(count,currentCount)){ // now check, both array are same
-                    list.add(i-M+1); // if we find similar add their index in our list
+        for (int i = 0; i < 'z' - 'a' + 1; i++) {
+            s1Map.put((char) ('a' + i), 0);
+            s2Map.put((char) ('a' + i), 0);
+        }
+        
+        for (int i = 0; i < s1.length(); i++) {
+            char nowChar = s1.charAt(i);
+            s1Map.put(nowChar, s1Map.get(nowChar) + 1);
+        }
+        
+        int left = 0;
+        int sum = 0;
+        List<Integer> answer = new ArrayList<>();
+    
+        for (int i = 0; i < s2.length(); i++) {
+            char nowChar = s2.charAt(i);
+            
+            if (s1Map.get(nowChar) == 0) {
+                for (int j = 0; j < 'z' - 'a' + 1; j++) {
+                    s2Map.put((char) ('a' + j), 0);
                 }
+                
+                sum = 0;
+                left = i + 1;
+                continue;
             }
-        return list;
-    }
-    private boolean areSame(int[] x, int[] y){
-        for(int i = 0; i < 26; i++){
-            if(x[i] != y[i]) // compare all the frequency & doesnn't find any di-similar frequency return true otherwise false
-                return false;
+            
+            while (s1Map.get(nowChar) < s2Map.get(nowChar) + 1) {
+                char leftChar = s2.charAt(left);
+                s2Map.put(leftChar, s2Map.get(leftChar) - 1);
+                left++;
+                sum--;
+            }
+            
+            s2Map.put(nowChar, s2Map.get(nowChar) + 1);
+            sum++;
+            
+            if (sum == s1.length()) { // 전부 맞은 경우
+                char leftChar = s2.charAt(left);
+                s2Map.put(leftChar, s2Map.get(leftChar) - 1);
+                left++;
+                sum--;
+                answer.add(i - (s1.length() - 1));
+            }
         }
         
-        return true;
-    }
-  private int[] freq(String s){
-        int[] count = new int[26]; // create array of size 26
-        for(int i = 0; i < s.length(); i++){
-            count[s.charAt(i) - 'a']++; // update acc. to it's frequency
-        }
-        
-        return count; // and return count 
+        return answer;
     }
 }
