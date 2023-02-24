@@ -13,6 +13,7 @@ class Solution {
         }
     
         int answer = Integer.MAX_VALUE;
+        System.out.println(queue);
         
         while (!queue.isEmpty() && queue.peek() % 2 == 0) {
             int number = queue.poll() / 2;
