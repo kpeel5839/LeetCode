@@ -1,14 +1,14 @@
 class Solution {    
-    List<Character> list = new ArrayList<>();
+    int index = 0;
     
-    public void cal(char pre, int cnt) {
-        list.add(pre);
+    public void cal(char[] chars, char pre, int cnt) {
+        chars[index++] = pre;
         
         if (cnt != 1) {
             String c = Integer.toString(cnt);
             
             for (int i = 0; i < c.length(); i++) {
-                list.add(c.charAt(i));
+                chars[index++] = c.charAt(i);
             }
         }
     }
@@ -19,7 +19,7 @@ class Solution {
         
         for (int i = 1; i < chars.length; i++) {
             if (chars[i] != pre) {            
-                cal(pre, cnt);
+                cal(chars, pre, cnt);
                 pre = chars[i];
                 cnt = 0;
             }
@@ -27,11 +27,8 @@ class Solution {
             cnt++;
         }
         
-        cal(pre, cnt);
-        for (int i = 0; i < list.size(); i++) {
-            chars[i] = list.get(i);
-        }
+        cal(chars, pre, cnt);
         
-        return list.size();
+        return index;
     }
 }
