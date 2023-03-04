@@ -12,14 +12,9 @@ class Solution {
         int max = 0;
         
         for (int i = 0; i < nums.length; i++) {
-            if (minK == nums[i]) {
+            if (minK == nums[i] || maxK == nums[i]) {
                 set.add(nums[i]);
-                index.put(minK, i);
-            }
-            
-            if (maxK == nums[i]) {
-                set.add(nums[i]);
-                index.put(maxK, i);
+                index.put(nums[i], i);
             }
             
             if (minK <= nums[i] && nums[i] <= maxK) {
