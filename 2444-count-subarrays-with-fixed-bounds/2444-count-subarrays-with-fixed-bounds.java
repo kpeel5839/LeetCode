@@ -33,8 +33,8 @@ class Solution {
                     }
                 }
             } else {
-                set.clear();
-                index.clear();
+                set = new HashSet<>();
+                index = new HashMap<>();
                 outRange = i;
                 max = 0;
             }
