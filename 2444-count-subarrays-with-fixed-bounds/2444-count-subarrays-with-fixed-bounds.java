@@ -28,8 +28,8 @@ class Solution {
                     }
                 }
             } else {
-                set = new HashSet<>();
-                index = new HashMap<>();
+                set.clear();
+                index.clear();
                 outRange = i;
                 max = 0;
             }
