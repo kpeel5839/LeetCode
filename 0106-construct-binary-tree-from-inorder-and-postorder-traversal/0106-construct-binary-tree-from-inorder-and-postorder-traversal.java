@@ -39,10 +39,6 @@ class Solution {
         
         return t;
     }
-    
-    public void makeTree(List<Integer> order) {
-        
-    }
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         return dfs(inorder, postorder, 0, inorder.length - 1, 0, postorder.length - 1);
