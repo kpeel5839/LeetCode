@@ -5,16 +5,15 @@ class Solution {
         if (parent[a] == a) {
             return a;
         } 
-        
         return parent[a] = find(parent[a]);
     }
     
     void union(int a, int b) {
         a = find(a);
         b = find(b);
-        
         parent[b] = a;
     }
+    
     public int makeConnected(int n, int[][] connections) {
         parent = new int[n];
         
@@ -29,7 +28,6 @@ class Solution {
         for (int i = 0; i < connections.length; i++) {
             int a = find(connections[i][0]);
             int b = find(connections[i][1]);
-            
             union(a, b);
         }
         
