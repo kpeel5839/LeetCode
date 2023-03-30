@@ -4,10 +4,6 @@ class Solution {
     public boolean isScramble(String s1, String s2) {
         int n = s1.length();
         
-        if (n != s2.length()) {
-            return false;
-        }
-        
         if (s1.equals(s2)) {
             return true;
         }
