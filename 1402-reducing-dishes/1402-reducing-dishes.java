@@ -1,15 +1,23 @@
 class Solution {
     public int maxSatisfaction(int[] satisfaction) {
-        Arrays.sort(satisfaction);
-        int n = satisfaction.length;
-        int presum = 0, res = 0;
-        for (int i = n - 1; i >= 0; i--) {
-            presum += satisfaction[i];
-            if (presum < 0) {
-                break;
-            }
-            res += presum;
+        int sum = 0;
+        int[] s = new int[satisfaction.length];
+        Arrays.sort(satisfaction); 
+        
+        for (int i = satisfaction.length - 1; i != -1; i--) {
+            sum += satisfaction[i];
+            s[i] = sum;
+        } 
+        
+        int ans = 0;
+        int time = 0;
+        for (int i = 0; i < satisfaction.length; i++) {
+            if (0 <= s[i]) {
+                time++;
+                ans += time * satisfaction[i];   
+            }        
         }
-        return res;
+        
+        return ans;
     }
 }
