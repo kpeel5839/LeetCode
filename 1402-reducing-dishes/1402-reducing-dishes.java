@@ -12,7 +12,7 @@ class Solution {
         int ans = 0;
         int time = 0;
         for (int i = 0; i < satisfaction.length; i++) {
-            if (0 <= s[i]) {
+            if (0 < s[i]) {
                 time++;
                 ans += time * satisfaction[i];   
             }        
