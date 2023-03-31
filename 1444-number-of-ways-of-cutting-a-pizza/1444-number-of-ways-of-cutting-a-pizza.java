@@ -66,6 +66,10 @@ class Solution {
             }
         }    
         
+        if (goal == 0 && count[0][0] == 0) {
+            return 0;
+        }
+        
         return (int) (dfs(0, 0, 0) % MOD);
     }
 }
