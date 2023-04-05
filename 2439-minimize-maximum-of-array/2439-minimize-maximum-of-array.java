@@ -8,11 +8,7 @@ class Solution {
         }
         
         for (int i = 1; i < n.length; i++) {
-            long now = n[i];
-            
-            long diff = m - pre;
-            pre += diff;
-            now -= diff;
+            long now = (n[i] - (m - pre));
             
             if (m < now) {
                 return false;
