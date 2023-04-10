@@ -12,7 +12,6 @@ class Solution {
             return false;
         }
 
-        // bracket 이 맞는지 봐야함
         if (bracketStore.peek() == '(' && bracket == ')') {
             return true;
         } else if (bracketStore.peek() == '[' && bracket == ']') {
