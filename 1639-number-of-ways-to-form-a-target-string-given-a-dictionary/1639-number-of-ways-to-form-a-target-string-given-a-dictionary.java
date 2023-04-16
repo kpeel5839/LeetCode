@@ -5,9 +5,9 @@ class Solution {
         int ll = wl - tl + 1;
         int MOD = (int) Math.pow(10, 9) + 7;
         
-        if (ll <= 0) {
-            return 0;
-        }
+        // if (ll <= 0) {
+        //     return 0;
+        // }
         
         Map<Character, Integer>[] mm = new HashMap[wl];
         long[][] dp = new long[tl][wl + 1];
