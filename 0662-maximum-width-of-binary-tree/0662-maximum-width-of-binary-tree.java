@@ -14,10 +14,10 @@
  * }
  */
 class Solution {
-    public Map<Integer, Long> m = new HashMap<>();
-    public long ans = 0;
+    public Map<Integer, Integer> m = new HashMap<>();
+    public int ans = 0;
     
-    public void dfs(TreeNode c, int d, long n) {
+    public void dfs(TreeNode c, int d, int n) {
         if (c == null) {
             return;
         }
@@ -33,6 +33,6 @@ class Solution {
     
     public int widthOfBinaryTree(TreeNode root) {
         dfs(root, 1, 1);
-        return (int) ans;
+        return ans;
     }
 }
