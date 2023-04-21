@@ -9,31 +9,20 @@ class Solution {
         
         dp[0].put(0, 1L);
         
-        for (int i = 0; i < group.length; i++) {        
-            Map<Integer, Long>[] mm = new HashMap[n + 1];
-            
-            for (int c = 0; c < dp.length; c++) {
-                mm[c] = new HashMap<>();    
-            }
-            
-            for (int j = 0; j + group[i] < dp.length; j++) { // 근데, 여기서             
+        for (int i = 0; i < group.length; i++) {                                
+            for (int j = dp.length - 1 - group[i]; 0 <= j; j--) { // 근데, 여기서             
                 int ii = j + group[i];            
                 
                 for (Map.Entry<Integer, Long> v : dp[j].entrySet()) {
                     int key = v.getKey();
                     long value = v.getValue();
-                    int newKey = Math.min(minProfit, key + profit[i]);                
-                    mm[ii].put(newKey, (mm[ii].getOrDefault(newKey, 0L) + value) % MOD);                
+                    int newKey = Math.min(minProfit, key + profit[i]);  
+                    dp[ii].put(newKey, (dp[ii].getOrDefault(newKey, 0L) + value) % MOD);
+                    // mm[ii].put(newKey, (mm[ii].getOrDefault(newKey, 0L) + value) % MOD);                
                 }                
             }
             
-            for (int c = 0; c < dp.length; c++) {
-                for (Map.Entry<Integer, Long> v : mm[c].entrySet()) {
-                    int key = v.getKey();
-                    long value = v.getValue();
-                    dp[c].put(key, (dp[c].getOrDefault(key, 0L) + value) % MOD);
-                }
-            }
+        
         }
         
         long ans = 0;
