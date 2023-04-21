@@ -1,6 +1,5 @@
 class Solution {
     public int profitableSchemes(int n, int minProfit, int[] group, int[] profit) {
-        // 추가하는 경우와, 추가하지 않는 경우, 이 때 minProfit 을 넘지 않도록 하는 것이 관건이다.
         int MOD = (int) Math.pow(10, 9) + 7;
         Map<Integer, Long>[] dp = new HashMap[n + 1];
         
