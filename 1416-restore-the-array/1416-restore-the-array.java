@@ -12,7 +12,6 @@ class Solution {
             }
             
             long now = 0;            
-            int ll = Long.toString(now).length();        
             
             for (int j = i; j < Math.min(i + m, n); j++) {
                 now *= 10;
