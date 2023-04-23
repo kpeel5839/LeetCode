@@ -2,9 +2,9 @@ class Solution {
     public int numberOfArrays(String s, int k) {
         int m = Integer.toString(k).length();
         int n = s.length();
-        long[] dp = new long[n + 1];
-        dp[n] = 1;        
+        long[] dp = new long[n + 1];        
         int MOD = (int) Math.pow(10, 9) + 7;
+        dp[n] = 1;
         
         for (int i = n - 1; 0 <= i; i--) { // 끝자리부터
             if (s.charAt(i) == '0') {
