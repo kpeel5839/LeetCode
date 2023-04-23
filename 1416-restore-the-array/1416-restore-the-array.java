@@ -11,21 +11,16 @@ class Solution {
                 continue;
             }
             
-            long now = 0;        
-            
-            for (int j = i; j < Math.min(n, i + m); j++) {
-                now *= 10;
-                now += (s.charAt(j) - '0');    
-            }               
-                        
+            long now = 0;            
             int ll = Long.toString(now).length();        
             
-            for (int j = 0; j < ll; j++) {            
+            for (int j = i; j < Math.min(i + m, n); j++) {
+                now *= 10;
+                now += (s.charAt(j) - '0'); 
+                
                 if (1 <= now && now <= k) { // 이게 가능하면, 뒤에 있는 것들 계속
-                    dp[i] = (dp[i] + dp[i + ll - j]) % MOD;
-                }
-                                
-                now /= 10;
+                    dp[i] = (dp[i] + dp[j + 1]) % MOD;
+                }                        
             }
         }    
     
