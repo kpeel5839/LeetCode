@@ -1,20 +1,18 @@
 class SmallestInfiniteSet {
     public int n;
     public PriorityQueue<Integer> q;    
+    public Set<Integer> s;
 
     public SmallestInfiniteSet() {
         n = 1;
         q = new PriorityQueue<>();        
+        s = new HashSet<>();
     }
     
     public int popSmallest() {
         while (!q.isEmpty() && q.peek() < n) {
             int v = q.poll();
-            
-            if (!q.isEmpty() && q.peek() == v) {
-                continue;
-            }
-            
+            s.remove(v);
             return v;
         }
         
@@ -22,8 +20,9 @@ class SmallestInfiniteSet {
     }
     
     public void addBack(int num) {
-        if (num < n) {
-            q.add(num);            
+        if (!s.contains(num) && num < n) {
+            q.add(num);         
+            s.add(num);
         }
     }
 }
