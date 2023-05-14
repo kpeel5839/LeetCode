@@ -2,46 +2,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Solution {
-    public class Pair {
-        int a;
-        int b;
-        
-        public Pair(int a, int b) {
-            this.a = a;
-            this.b = b;
-        }
-        
-        @Override
-        public boolean equals(Object o) {
-            Pair pair = (Pair) o;
-            return pair.a == this.a && pair.b == this.b;
-        }
-        
-        @Override
-        public int hashCode() {
-            return Objects.hash(a, b);    
-        }    
-    }
-    
-    public Map<Integer, Integer> m = new HashMap<>();
-    public Map<Pair, Integer> g = new HashMap<>();
+    public Map<Integer, Integer> m = new HashMap<>();    
 
-    public int operation(int a, int b) {
+    public int gcd(int a, int b) {
         if (b == 0) {
             return a;
         }
 
-        return operation(b, a % b);
-    }
-    
-    public int gcd(int a, int b) {
-        Pair pair = new Pair(a, b);
-        
-        if (!g.containsKey(pair)) {
-            g.put(pair, operation(a, b));
-        }
-        
-        return g.get(pair);
+        return gcd(b, a % b);
     }
 
     public void dfs(int[] nums, int v, int index, int goal, int c) {                        
