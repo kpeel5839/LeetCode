@@ -12,24 +12,6 @@ class Solution {
         return gcd(b, a % b);
     }
 
-    public void print(int a) {
-        Stack<Integer> stack = new Stack<>();
-        while (a != 0) {
-            stack.add(a % 2);        
-            a /= 2;
-        }
-
-        if (stack.isEmpty()) {
-            System.out.print(0);
-        }
-
-        while (!stack.isEmpty()) {
-            System.out.print(stack.pop());
-        }
-
-        System.out.println();
-    }
-
     public void dfs(int[] nums, int v, int index, int goal, int c) {                        
         if (goal == c) {
             cal(v, nums, goal / 2);
