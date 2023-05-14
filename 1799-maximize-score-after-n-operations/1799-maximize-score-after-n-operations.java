@@ -31,7 +31,7 @@ class Solution {
             return a;
         }
 
-        return gcd(b, a % b);
+        return operation(b, a % b);
     }
     
     public int gcd(int a, int b) {
