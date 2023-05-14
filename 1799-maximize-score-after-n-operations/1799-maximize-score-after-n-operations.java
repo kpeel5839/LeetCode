@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 class Solution {
     public Map<Integer, Integer> m = new HashMap<>();    
 
