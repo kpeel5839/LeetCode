@@ -49,20 +49,23 @@ class Solution {
             b = dfs(c.right);
         }
     
-        long res = (f[a + b] * modInv(f[a], MOD) % MOD * modInv(f[b], MOD) % MOD) % MOD;
+        long res = (f[a + b] * modInv(f[a], MOD - 2) % MOD * modInv(f[b], MOD - 2) % MOD) % MOD;
         ans = (ans * res) % MOD;
         return a + b + 1;
     }
     
     private long modInv(long a, int p) {
         long res = 1;
-        for (int exp = p - 2; exp > 0; exp >>= 1) {
+        
+        for (int exp = p; exp > 0; exp >>= 1) {
             if ((exp & 1) == 1) {
-                res = (res * a) % p;
+                res = (res * a) % MOD;
             }
-            a = (a * a) % p;
+            
+            a = (a * a) % MOD;
         }
-        return res;
+        
+        return res % MOD;
     }
 
     public int numOfWays(int[] nums) {
