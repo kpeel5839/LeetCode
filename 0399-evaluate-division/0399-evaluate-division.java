@@ -8,7 +8,8 @@ class Solution {
             return a;
         }
         
-        return p.put(p.get(a), find(p.get(a)));
+        p.put(a, find(p.get(a)));
+        return p.get(a);   
     }
     
     public void union(String a, String b) {
@@ -75,11 +76,6 @@ class Solution {
         for (int i = 0; i < queries.size(); i++) {
             String a = queries.get(i).get(0);
             String b = queries.get(i).get(1);
-        
-            if (!(!p.containsKey(a) || !p.containsKey(b))) {
-                find(a);
-                find(b);
-            }
             
             if ((!p.containsKey(a) || !p.containsKey(b)) || !find(a).equals(find(b))) {
                 ans[i] = -1;
