@@ -71,17 +71,11 @@ class Solution {
             }
         }
         
-        System.out.println(v);
         double[] ans = new double[queries.size()];
         for (int i = 0; i < queries.size(); i++) {
             String a = queries.get(i).get(0);
             String b = queries.get(i).get(1);
-            String c = "";
-            String d = "";
-
-            System.out.println(a + " " + b);
-            System.out.println(!p.containsKey(a) || !p.containsKey(b));
-
+        
             if (!(!p.containsKey(a) || !p.containsKey(b))) {
                 find(a);
                 find(b);
