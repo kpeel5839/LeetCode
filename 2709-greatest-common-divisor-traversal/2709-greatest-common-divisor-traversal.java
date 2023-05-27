@@ -16,12 +16,6 @@ class Solution {
             return;
         }
         
-        if (count[a] < count[b]) {
-            int temp = a;
-            a = b;
-            b = temp;
-        }
-        
         p[b] = a;
         count[a] += count[b];
     }
