@@ -20,7 +20,7 @@ class Solution {
         this.dist = dist;
         int ans = -1;
         int l = 1;
-        int r = (int) Math.pow(10, 9); 
+        int r = (int) Math.pow(10, 7); 
         
         while (l <= r) {
             int m = (l + r) / 2;
