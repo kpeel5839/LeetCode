@@ -2,8 +2,7 @@ class Solution {
     public int n;
     public int[] b;
     
-    public boolean isPossible(long m) {
-        Queue<Long> q = new LinkedList<>();
+    public boolean isPossible(long m) {    
         int index = 0;
         long now = 0;
 
