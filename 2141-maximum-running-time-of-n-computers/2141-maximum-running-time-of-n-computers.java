@@ -8,15 +8,11 @@ class Solution {
         long now = 0;
 
         for (int i = 0; i < b.length; i++) {
-            q.add((long) b[i]); 
-        }
-        
-        while (!q.isEmpty()) {
-            if (n - index > q.size()) {
-                return false; 
+            if (n - index > b.length - i) {
+                return false;
             }
-        
-            now += q.poll();
+
+            now += b[i];
             
             if (m <= now) {
                 now %= m;
