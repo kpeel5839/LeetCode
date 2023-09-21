@@ -17,13 +17,7 @@ class Solution {
             int n1r = m != n1.length ? n1[m] : 987654321;
             int n2l = j != 0 ? n2[j - 1] : -987654321;
             int n2r = j != n2.length ? n2[j] : 987654321;        
-// 0 1
-// 0 3
-// -987654321 1
-// 4 5
-// 1 2
-// 1 987654321
-// 3 4        
+            
             if (n1l <= n2r && n2l <= n1r) {
                 if (size % 2 == 0) {
                     return (Math.max(n1l, n2l) + Math.min(n1r, n2r)) / 2d;
