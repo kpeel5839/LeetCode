@@ -13,13 +13,6 @@ class Solution {
             }
         }
 
-        for (int i = 0; i <= row; i++) {
-            for (int j = 0; j <= i; j++) {
-                System.out.print(glass[i][j] + " ");
-            }
-            System.out.println();
-        }
-
         return 1d <= glass[row][col] ? 1 : glass[row][col];
     }
     
