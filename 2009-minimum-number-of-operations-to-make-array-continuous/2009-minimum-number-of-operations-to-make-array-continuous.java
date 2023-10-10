@@ -9,11 +9,11 @@ class Solution {
         for (int i = 0; i < n; i++) {
             while (r != n && (nums[r] - nums[i]) <= (n - 1)) {
                 m.put(nums[r], m.getOrDefault(nums[r], 0) + 1);
+                int count = r - i + 1;
+                ans = Math.min(ans, n - m.size());
                 r++;
             }
             
-            int count = r - i + 1;
-            ans = Math.min(ans, n - m.size());
             m.put(nums[i], m.get(nums[i]) - 1);
 
             if (m.get(nums[i]) == 0) {
