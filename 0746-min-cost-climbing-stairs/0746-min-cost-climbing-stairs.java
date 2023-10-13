@@ -11,10 +11,8 @@ class Solution {
         if (dp[index] != Integer.MAX_VALUE) {
             return dp[index];
         }
-
-        for (int i = 1; i <= 2; i++) {
-            dp[index] = Math.min(dfs(index + 1), dfs(index + 2)) + nums[index];
-        }
+    
+        dp[index] = Math.min(dfs(index + 1), dfs(index + 2)) + nums[index];    
 
         return dp[index];
     }
