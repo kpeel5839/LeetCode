@@ -36,8 +36,7 @@ class Solution {
     public int numWays(int steps, int arrLen) {
         this.n = steps;
         this.l = Math.min((steps / 2) + 1, arrLen);
-        dp = new int[n][l];
-        System.out.println(n + " " + l);
+        dp = new int[n][l];    
         
         for (int i = 0; i < n; i++) {
             Arrays.fill(dp[i], -1);
