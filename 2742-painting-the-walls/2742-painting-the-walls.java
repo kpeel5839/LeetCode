@@ -1,29 +1,37 @@
-class Solution:
-    def paintWalls(self, cost: List[int], time: List[int]) -> int:
-        postfix_times = time.copy()
+class Solution {
 
-        for i in range(len(postfix_times) - 2, -1, -1):
-            postfix_times[i] += postfix_times[i +1]
+    public int n;
+    public int[] cost;
+    public int[] time;
+    public final int INF = 1_000_000_000;
+    public int[][] dp;
 
-        visited = {}
-
-        def dp(index, time_painted):
-            if index == len(cost):
-                return 0 if time_painted >= 0 else float("inf")
-
-            if time_painted >= len(cost) - index:
-                return 0
-
-            if time_painted + postfix_times[index] < 0:
-                return float("inf")
-
-            if (index, time_painted) in visited:
-                return visited[(index, time_painted)]
+    public int dfs(int t, int i) {
+        if (i == n) {
+            if (t < 0) {
+                return INF;
+            }
             
-            visited[(index, time_painted)] = min(
-                dp(index + 1, time_painted - 1),
-                cost[index] + dp(index + 1,
-                time_painted + time[index]))
-            return visited[(index, time_painted)]
+            return 0;
+        }
+
+        if (dp[t + 500][i] != -1) {
+            return dp[t + 500][i];
+        }
+
+        dp[t + 500][i] = Math.min(dfs(Math.min(n, t + time[i]), i + 1) + cost[i], dfs(t - 1, i + 1));
+        return dp[t + 500][i];
+    }
+    public int paintWalls(int[] cost, int[] time) {
+        this.n = cost.length;
+        this.time = time;
+        this.cost = cost;
+        dp = new int[1001][n];
         
-        return dp(0, 0)
+        for (int i = 0; i < dp.length; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+        
+        return dfs(0, 0);
+    }
+}
