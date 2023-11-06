@@ -10,8 +10,7 @@ class SeatManager {
     
     public int reserve() {
         if (q.isEmpty()) {
-            next++;
-            return next - 1;
+            return next++;
         }
 
         return q.poll();
@@ -20,6 +19,7 @@ class SeatManager {
     public void unreserve(int seatNumber) {
         q.add(seatNumber);
     }
+    
 }
 
 /**
