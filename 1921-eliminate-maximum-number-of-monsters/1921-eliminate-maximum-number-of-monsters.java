@@ -4,7 +4,7 @@ class Solution {
         int[] sum = new int[n];
 
         for (int i = 0; i < dist.length; i++) {
-            int deadTime = 0;
+            int deadTime = (int) Math.ceil(dist[i]);
             if (dist[i] % speed[i] == 0) {
                 deadTime = dist[i] / speed[i];
             } else {
