@@ -1,34 +1,50 @@
 class Solution {
-    public int[] restoreArray(int[][] vals) {
-        Map<Integer, int[]> pairs = new HashMap<>();
-        for (int i = 0; i < vals.length; i++) {
-            if (pairs.containsKey(vals[i][0])) {
-                pairs.get(vals[i][0])[1] = vals[i][1];
-            } else {
-                pairs.put(vals[i][0], new int[] {vals[i][1], -1000000});
+    
+    public List<Integer> ans = new ArrayList<>();
+    public Map<Integer, List<Integer>> graph = new HashMap<>();
+    public Set<Integer> visited = new HashSet<>();
+    
+    public void dfs(int cur) {
+        if (visited.contains(cur)) {
+            return;
+        }
+        
+        ans.add(cur);
+        visited.add(cur);
+        
+        for (Integer next : graph.get(cur)) {
+            dfs(next);
+        }
+    }
+    
+    public int[] restoreArray(int[][] pairs) {
+        for (int i = 0; i < pairs.length; i++) { 
+            if (!graph.containsKey(pairs[i][0])) {
+                graph.put(pairs[i][0], new ArrayList<>());
             }
-            if (pairs.containsKey(vals[i][1])) {
-                pairs.get(vals[i][1])[1] = vals[i][0];
-            } else {
-                pairs.put(vals[i][1], new int[] {vals[i][0], -1000000});
+            
+            if (!graph.containsKey(pairs[i][1])) {
+                graph.put(pairs[i][1], new ArrayList<>());
+            }
+
+            graph.get(pairs[i][0]).add(pairs[i][1]);
+            graph.get(pairs[i][1]).add(pairs[i][0]);
+        }
+        
+        for (Map.Entry<Integer, List<Integer>> entry : graph.entrySet()) {
+            List<Integer> next = entry.getValue();
+            
+            if (next.size() == 1) {
+                dfs(entry.getKey());
+                break;
             }
         }
-        int[] result = new int[vals.length + 1];
-        int start = -1000000;
-        for (Map.Entry<Integer, int[]> entry : pairs.entrySet()) {
-            if (entry.getValue()[1] == -1000000) {
-                start = entry.getKey();
-            }
+        
+        int[] answer = new int[ans.size()];
+        for (int i = 0; i < ans.size(); i++) {
+            answer[i] = ans.get(i);
         }
-        result[0] = start;
-        int left = -1000000;
-        for (int i = 1; i < result.length; i++) {
-            int[] val = pairs.get(start);
-            int newval = (val[0] == left ? val[1] : val[0]);
-            result[i] = newval;
-            left = start;
-            start = newval;
-        }
-        return result;
+        
+        return answer;
     }
 }
