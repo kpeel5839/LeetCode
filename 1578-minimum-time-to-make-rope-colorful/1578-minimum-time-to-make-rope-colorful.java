@@ -54,13 +54,7 @@ class Solution {
         t.add(max);
         sb.append(pre);
         
-        this.c = sb.toString();
-        this.t = t;
-        this.dp = new int[2][c.length()];
         
-        Arrays.fill(dp[0], INF);
-        Arrays.fill(dp[1], INF);
-        
-        return answer + dfs(0, 0);
+        return answer;
     }
 }
