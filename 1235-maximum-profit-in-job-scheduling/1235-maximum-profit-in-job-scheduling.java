@@ -16,9 +16,9 @@ class Solution {
             
             if (jobs[middle][1] <= findNumber) {
                 left = middle + 1;
-                indexOfResult = middle;  
+                indexOfResult = middle;
             } else {
-                right = middle - 1;
+                right = middle - 1;  
             }
         }
 
