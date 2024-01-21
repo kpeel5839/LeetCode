@@ -1,33 +1,30 @@
-import java.util.*;
-
 class Solution {
-    public int[][] maximumRobFromHere;
     
-    public int getMaximumRobFromHere(int[] houses, int nowHouseNumber, int isPossibleRobThisHouse) {
-        if (nowHouseNumber >= houses.length) {
+    public int[][] dp;
+    public int[] nums;
+    
+    public int dfs(int pre, int index) {
+        if (index == nums.length) {
             return 0;
         }
         
-        // isPossibleRobThisHouse = 0 이면 가능, 1 이면 불가능
-        if (maximumRobFromHere[isPossibleRobThisHouse][nowHouseNumber] != -1) {  
-            return maximumRobFromHere[isPossibleRobThisHouse][nowHouseNumber];
+        if (dp[pre][index] != -1) {
+            return dp[pre][index];
         }
         
-        maximumRobFromHere[isPossibleRobThisHouse][nowHouseNumber] = 0;
-        if (isPossibleRobThisHouse == 0) {
-            maximumRobFromHere[isPossibleRobThisHouse][nowHouseNumber] = Math.max(getMaximumRobFromHere(houses, nowHouseNumber + 1, 1) + houses[nowHouseNumber], getMaximumRobFromHere(houses, nowHouseNumber + 1, 0));        
-        } else {
-            maximumRobFromHere[isPossibleRobThisHouse][nowHouseNumber] = getMaximumRobFromHere(houses, nowHouseNumber + 1, 0);
+        if (pre != 1) {
+            dp[pre][index] = dfs(1, index + 1) + nums[index];
         }
         
-        return maximumRobFromHere[isPossibleRobThisHouse][nowHouseNumber];
+        dp[pre][index] = Math.max(dp[pre][index], dfs(0, index + 1));
+        return dp[pre][index];
     }
     
-    public int rob(int[] houses) {
-        maximumRobFromHere = new int[2][houses.length];
-        Arrays.fill(maximumRobFromHere[0], -1);
-        Arrays.fill(maximumRobFromHere[1], -1);
-        
-        return getMaximumRobFromHere(houses, 0, 0);
+    public int rob(int[] nums) {
+        this.nums = nums;
+        dp = new int[2][nums.length];
+        Arrays.fill(dp[0], -1);
+        Arrays.fill(dp[1], -1);
+        return dfs(0, 0); 
     }
 }
