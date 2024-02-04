@@ -2,12 +2,6 @@ class Solution {
 public:
     
   bool isMatch(map<char, int>& ss, map<char, int>& tt) {
-    //for (auto v : ss) {
-    //  printf("ss[%c] : %d\n", v.first, v.second);
-    //}
-    
-    //cout << "\n";
-    
     for (auto v : tt) {
       char key = v.first;
       if (tt[key] > ss[key]) {
@@ -34,7 +28,6 @@ public:
     for (int i = 0; i < s.length(); i++) {
       ss[s.at(i)]++;
 
-      // cout << "right is " << i << "\n";
       while (l <= i && isMatch(ss, tt)) {
         int length = i - l + 1;
         
