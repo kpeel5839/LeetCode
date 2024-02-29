@@ -12,7 +12,7 @@
 class Solution {
 public:
   bool success=true;
-  unordered_map<int,int>m;
+  map<int,int>m;
   void dfs(TreeNode* cur,int row){
     if(!success){
       return;
