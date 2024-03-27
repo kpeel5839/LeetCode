@@ -18,7 +18,7 @@ public:
       nums[v-1]*=-1;
     }
     for(int i=0;i<n;i++){
-      if(0<=nums[i]){
+      if(0<nums[i]){
         return i+1;
       }
     }
