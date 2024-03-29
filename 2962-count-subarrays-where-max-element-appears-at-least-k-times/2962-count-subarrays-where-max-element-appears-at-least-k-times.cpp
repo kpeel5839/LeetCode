@@ -4,7 +4,7 @@ public:
     int n=nums.size();
     int maxElement=0;
     long long answer=0;
-    map<int,vector<int>>m;
+    unordered_map<int,vector<int>>m;
     for(int i=0;i<n;i++){
       maxElement=max(maxElement,nums[i]);
       m[nums[i]].push_back(i);
