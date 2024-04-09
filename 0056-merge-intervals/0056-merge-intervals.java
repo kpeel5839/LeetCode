@@ -1,29 +1,24 @@
 class Solution {
     public int[][] merge(int[][] time) {
         Arrays.sort(time, (o1, o2) -> o1[0] - o2[0]);
-        
-        int startTime = time[0][0];
-        int endTime = time[0][1];
-        List<int[]> ans = new ArrayList<>();
-
-        for (int i = 1; i < time.length; i++) {
-            if (time[i][0] <= endTime) {
-                endTime = Math.max(time[i][1], endTime);
-            } else {
-                ans.add(new int[] {startTime, endTime});
-                startTime = time[i][0];
-                endTime = time[i][1];
+        int start=time[0][0];
+        int end=time[0][1];
+        List<int[]>resultRange=new ArrayList<>();
+        for(int i=0;i<time.length;i++){
+            if(end<time[i][0]){
+                resultRange.add(new int[]{start,end});
+                start=time[i][0];
+                end=time[i][1];
+                continue;
             }
+            end=Math.max(end,time[i][1]);
         }
-
-        ans.add(new int[] {startTime, endTime});
-        int[][] answer = new int[ans.size()][2];
-        
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = ans.get(i);
+        resultRange.add(new int[]{start,end});
+        int[][] answer=new int[resultRange.size()][2];
+        for(int i=0;i<resultRange.size();i++){
+          answer[i][0]=resultRange.get(i)[0];
+          answer[i][1]=resultRange.get(i)[1];
         }
-        
         return answer;
-
     }
 }
