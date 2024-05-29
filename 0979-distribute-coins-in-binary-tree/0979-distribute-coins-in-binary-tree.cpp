@@ -11,54 +11,70 @@
  */
 class Solution {
 public:
-    vector<vector<int>>graph;
-    vector<int>coins;
-    int nodeNumber=0;
-    int dfs(TreeNode*cur){
-        int curNodeNumber=nodeNumber++;
+    typedef vector<int> vi;
+    typedef vector<vi> vii;
+    typedef vector<vii> viii;
+    int answer=0;
+    void add(viii&origin,viii&result){
+        for(int i=0;i<result[0].size();i++){
+            origin[0].push_back(result[0][i]);
+        }
+        for(int i=0;i<result[1].size();i++){
+            origin[1].push_back(result[1][i]);
+        }
+    }
+    viii dfs(TreeNode* cur){
+        viii curArr(2);
+        if(cur->val==0){
+            curArr[1].push_back({cur->val,0});
+        }else if(cur->val!=1){
+            curArr[0].push_back({cur->val-1,0});
+        }
         if(cur->left!=nullptr){
-            int leftNodeNumber=dfs(cur->left);
-            graph[curNodeNumber].push_back(leftNodeNumber);
-            graph[leftNodeNumber].push_back(curNodeNumber);
+            viii result=dfs(cur->left);
+            add(curArr,result);
         }
         if(cur->right!=nullptr){
-            int rightNodeNumber=dfs(cur->right);
-            graph[curNodeNumber].push_back(rightNodeNumber);
-            graph[rightNodeNumber].push_back(curNodeNumber);
+            viii result=dfs(cur->right);
+            add(curArr,result);
         }
-        coins[curNodeNumber]=cur->val;
-        return curNodeNumber;
+        sort(curArr[0].begin(),curArr[0].end(),[](vi o1,vi o2){
+            return o1[1]>o2[1];
+        });
+        sort(curArr[1].begin(),curArr[1].end(),[](vi o1,vi o2){
+            return o1[1]>o2[1];
+        });
+        int pointer=0;
+        // for(int i=0;i<curArr[1].size();i++){
+        //     cout<<"{ "<<curArr[1][i][0]<<", "<<curArr[1][i][1]<<" }"<<"\n";
+        // }
+        // cout<<curArr[1].size()<<"\n";
+        for(int i=0;i<curArr[0].size();i++){
+            while(pointer!=curArr[1].size()&&curArr[0][i][0]!=0){
+                answer+=curArr[0][i][1]+curArr[1][pointer][1];
+                // cout<<curArr[0][i][1]<<", "<<curArr[1][pointer][1]<<"\n";
+                // cout<<curArr[0][i][0]<<"\n";
+                curArr[1][pointer++][0]=-1;
+                curArr[0][i][0]--;
+            }
+        }
+        viii resultArr(2);
+        for(int i=0;i<curArr[0].size();i++){
+            if(curArr[0][i][0]==0){
+                continue;
+            }
+            resultArr[0].push_back({curArr[0][i][0],curArr[0][i][1]+1});
+        }
+        for(int i=0;i<curArr[1].size();i++){
+            if(curArr[1][i][0]==-1){
+                continue;
+            }
+            resultArr[1].push_back({curArr[1][i][0],curArr[1][i][1]+1});
+        }
+        return resultArr;
     }
     int distributeCoins(TreeNode* root) {
-        int n=100;
-        graph.resize(n+1);
-        coins.resize(n+1);
         dfs(root);
-        queue<vector<int>>q;
-        for(int i=0;i<=n;i++){
-            if(coins[i]<=1){
-                continue;
-            }
-            q.push({i,0,i});
-        }
-        int answer=0;
-        while(q.size()!=0){
-            vector<int>p=q.front();q.pop();
-            if(coins[p[2]]==1){
-                continue;
-            }
-            for(int next:graph[p[0]]){
-                if(coins[next]==0){
-                    answer+=(p[1]+1);
-                    coins[p[2]]--;
-                    coins[next]++;
-                }
-                if(p[2]==next||coins[p[2]]==1){
-                    continue;
-                }
-                q.push({next,p[1]+1,p[2]});
-            }
-        }
         return answer;
     }
 };
