@@ -1,10 +1,8 @@
 class Solution {
 public:
-
     typedef long long ll;
     typedef vector<ll>vl;
     typedef vector<vl>vll;
-
     long long maxPoints(vector<vector<int>>& points) {
         int h=points.size();
         int w=points[0].size();
