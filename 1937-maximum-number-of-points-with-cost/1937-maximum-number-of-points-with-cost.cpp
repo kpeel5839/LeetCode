@@ -7,8 +7,12 @@ public:
         int h=points.size();
         int w=points[0].size();
         vll dp(h,vl(w));
+        ll answer=0;
         for(int i=0;i<w;i++){
             dp[0][i]=points[0][i];
+            if(1==h){
+                answer=max(answer,dp[0][i]);
+            }
         }
         for(int i=1;i<h;i++){
             queue<vl>q;
@@ -26,11 +30,10 @@ public:
                     dp[i][p[1]+1]=p[2]-1+points[i][p[1]+1];
                     q.push({i,p[1]+1,p[2]-1});
                 }
+                if(i==h-1){
+                    answer=max(answer,dp[i][p[1]]);
+                }
             }
-        }
-        ll answer=0;
-        for(int i=0;i<w;i++){
-            answer=max(answer,dp[h-1][i]);
         }
         return answer;
     }
