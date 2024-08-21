@@ -1,17 +1,20 @@
 class Solution {
 public:
+    typedef vector<int>vi;
+    typedef vector<vi>vii;
     int strangePrinter(string s) {
-        int n = s.size();
-        vector<vector<int>> dp(n, vector<int>(n, 0));
-        
-        for (int i = n-1; i >= 0; --i) {
-            dp[i][i] = 1;
-            for (int j = i+1; j < n; ++j) {
-                dp[i][j] = dp[i][j-1] + 1;
-                for (int k = i; k < j; ++k) {
-                    if (s[k] == s[j]) {
-                        dp[i][j] = min(dp[i][j], dp[i][k] + (k+1<=j-1 ? dp[k+1][j-1] : 0));
-                    }
+        int n=s.size();
+        vii dp(n,vi(n,1e9));
+        for(int i=0;i<n;i++){
+            dp[i][i]=1;
+        }
+        for(int i=2;i<=n;i++){
+            for(int j=0;j+i-1<n;j++){
+                if(s[j]==s[j+i-1]){
+                    dp[j][j+i-1]=min(dp[j][j+i-1],dp[j+1][j+i-1]);
+                }
+                for(int c=j;c<j+i-1;c++){
+                    dp[j][j+i-1]=min(dp[j][j+i-1],dp[j][c]+dp[c+1][j+i-1]);
                 }
             }
         }
