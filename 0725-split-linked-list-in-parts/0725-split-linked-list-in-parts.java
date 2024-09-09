@@ -9,33 +9,52 @@
  * }
  */
 class Solution {
+
     public ListNode[] splitListToParts(ListNode head, int k) {
         ListNode[] ans = new ListNode[k];
-        
-        ListNode cur = head;
-        int count = 0;
-        while (cur != null) {
-            count++;
-            cur = cur.next;
+
+        // get total size of linked list
+        int size = 0;
+        ListNode current = head;
+        while (current != null) {
+            size++;
+            current = current.next;
         }
-        
-        int size = count / k;
-        int remain = count % k;
-        cur = head;
-        
+
+        // minimum size for the k parts
+        int splitSize = size / k;
+
+        // Remaining nodes after splitting the k parts evenly.
+        // These will be distributed to the first (size % k) nodes
+        int numRemainingParts = size % k;
+
+        current = head;
+        ListNode prev = current;
         for (int i = 0; i < k; i++) {
-            ListNode copyHead = new ListNode(-1);
-            ListNode copyCur = copyHead;
-            
-            for (int j = 0; j < size + (i < remain ? 1 : 0); j++) {
-                copyCur.next = new ListNode(cur.val);
-                cur = cur.next;
-                copyCur = copyCur.next;
+            // create the i-th part
+            ListNode newPart = current;
+            // calculate size of i-th part
+            int currentSize = splitSize;
+            if (numRemainingParts > 0) {
+                numRemainingParts--;
+                currentSize++;
             }
-            
-            ans[i] = copyHead.next;
+
+            // traverse to end of new part
+            int j = 0;
+            while (j < currentSize) {
+                prev = current;
+                current = current.next;
+                j++;
+            }
+            // cut off the rest of linked list
+            if (prev != null) {
+                prev.next = null;
+            }
+
+            ans[i] = newPart;
         }
-        
+
         return ans;
     }
 }
