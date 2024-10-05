@@ -1,31 +1,35 @@
 class Solution {
-    bool areVectorsEqual(vector<int> a, vector<int> b){
-        for(int i=0; i<26; i++){
-            if(a[i]!=b[i]) return false;
+public:
+    bool isGood(map<char,int>&m1,map<char,int>&m2){
+        for(auto v:m1){
+            if(m2[v.first]!=v.second){
+                return false;
+            }
         }
         return true;
     }
-public:
     bool checkInclusion(string s1, string s2) {
-        if(s2.size()<s1.size()) return false;
-        vector<int> freqS1(26, 0);
-        for(char c: s1) freqS1[c-'a']++;
-        
-        vector<int> freqS2(26, 0);
-        int i=0, j=0;
-        
-        while(j<s2.size()){
-            freqS2[s2[j]-'a']++;
-            
-            if(j-i+1==s1.size()){
-                if(areVectorsEqual(freqS1, freqS2)) return true;
-            }
-            
-            if(j-i+1<s1.size()) j++;
-            else{
-                freqS2[s2[i]-'a']--;
-                i++;
-                j++;
+        if(s1.size()>s2.size()){
+            return false;
+        }
+        map<char,int>m1;
+        map<char,int>m2;
+        int n1=s1.size();
+        int n2=s2.size();
+        for(int i=0;i<n1;i++){
+            m1[s1[i]]++;
+        }
+        for(int i=0;i<n1;i++){
+            m2[s2[i]]++;
+        }
+        if(isGood(m1,m2)){
+            return true;
+        }
+        for(int i=0;i+n1<n2;i++){
+            m2[s2[i]]--;
+            m2[s2[i+n1]]++;
+            if(isGood(m1,m2)){
+                return true;
             }
         }
         return false;
