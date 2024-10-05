@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool isGood(map<char,int>&m1,map<char,int>&m2){
+    bool isGood(unordered_map<char,int>&m1,unordered_map<char,int>&m2){
         for(auto v:m1){
             if(m2[v.first]!=v.second){
                 return false;
@@ -12,8 +12,8 @@ public:
         if(s1.size()>s2.size()){
             return false;
         }
-        map<char,int>m1;
-        map<char,int>m2;
+        unordered_map<char,int>m1;
+        unordered_map<char,int>m2;
         int n1=s1.size();
         int n2=s2.size();
         for(int i=0;i<n1;i++){
