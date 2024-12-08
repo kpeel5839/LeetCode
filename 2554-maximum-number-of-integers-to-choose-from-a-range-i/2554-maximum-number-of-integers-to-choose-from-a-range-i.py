@@ -7,5 +7,4 @@ class Solution:
                 sum+=x
                 if sum>maxSum: break
                 cnt+=1
-        return cntclass Solution:
-        
+        return cnt
